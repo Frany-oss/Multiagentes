@@ -35,6 +35,8 @@ public class HostAgent extends Agent {
             /*Species s = new Species("Example");
             s.start();*/
             //agregar species
+            new Species("JokerAgent").start();
+            new Species("BassinoMosqueiraAgent").start();
             new Species("BuscadorAgent").start();
             //new Species("ReforzadorAgent").start();
             //new Species("ReproductorAgent").start();
