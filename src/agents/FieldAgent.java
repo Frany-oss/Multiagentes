@@ -12,13 +12,13 @@ import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class FieldAgent extends EntityAgent {
-    
+
     @Override
     protected void patrol() { getLocal().movementRandom(); }
 
     @Override
     protected void reproduce() {
-        if (getLocal().species.getStock() > 10) {
+        if (getLocal().species.getStock() >= 10) {
             FieldUnity unity = new FieldUnity(getLocal().species);
             //AgentController ac = 
             Functions.createAgent(unity.getName(), "TF." + getLocal().species.getFamily());
@@ -27,6 +27,18 @@ public class FieldAgent extends EntityAgent {
             getLocal().species.empty(10);
         }
     }
+    
+    //@Override
+    /*protected void reproduce(int n) {
+        if (getLocal().species.getStock() >= n) {
+            FieldUnity unity = new FieldUnity(getLocal().species);
+            //AgentController ac = 
+            Functions.createAgent(unity.getName(), "TF." + getLocal().species.getFamily());
+            //unity.setAgent(ac.);
+            getLocal().species.members.put(unity.getID(), unity);
+            getLocal().species.empty(n);
+        }
+    }*/
 
     @Override
     protected void fight() {
@@ -49,7 +61,7 @@ public class FieldAgent extends EntityAgent {
     @Override
     protected void init() { }
     
-    public static enum TYPE_MESSAGES { ENEMY, SOURCE}
+    public static enum TYPE_MESSAGES { ENEMY, SOURCE, OTHER }
     
     protected FoodSource detectSources() {
         FieldUnity unidad_local = getLocal();
@@ -60,8 +72,10 @@ public class FieldAgent extends EntityAgent {
                 break;
             }
         }
-        if (source_found != null)
+        if (source_found != null) {
             System.out.println(unidad_local.toString() + " " + source_found + " " + status);
+            status = EATING;
+        }
         return source_found;
     }
     

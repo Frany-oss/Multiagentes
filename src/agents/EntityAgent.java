@@ -29,6 +29,14 @@ public abstract class EntityAgent extends Agent {
             //Comportamiento movimiento
             parallel.addSubBehaviour(new TickerBehaviour(this, 100){
 		@Override
+                protected void onTick() { 
+                    if (status != PATROLING)  {
+                        
+                    }
+                }
+            });
+            parallel.addSubBehaviour(new TickerBehaviour(this, 100){
+		@Override
                 protected void onTick() { computeStatus(); }
             });
             parallel.addSubBehaviour(new CyclicBehaviour(this) {
@@ -107,6 +115,8 @@ public abstract class EntityAgent extends Agent {
                         if (source.isEmpty())
                             status = PATROLING;
                     }
+                    else
+                        status = PATROLING;
                     break;
                 case ESCAPE:
                     break;
